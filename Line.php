@@ -20,33 +20,33 @@ use \Firebase\JWT\JWT;
 class Line extends OAuth2
 {
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     */
     public $scope = 'openid email profile';
 
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     */
     protected $apiBaseUrl = 'https://access.line.me/oauth2/v2.1';
 
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     */
     protected $authorizeUrl = 'https://access.line.me/oauth2/v2.1/authorize';
 
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     */
     protected $accessTokenUrl = 'https://api.line.me/oauth2/v2.1/token';
 
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     */
     protected $apiDocumentation = 'https://developers.line.me/en/services/line-login';
     
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     */
     protected function validateAccessTokenExchange($response)
     {
         $collection = parent::validateAccessTokenExchange($response);
@@ -57,8 +57,8 @@ class Line extends OAuth2
     }
     
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     */
     public function getUserProfile()
     {
         $jwtDecoded = JWT::decode($this->getStoredData('id_token'), $this->clientSecret, array('HS256'));
