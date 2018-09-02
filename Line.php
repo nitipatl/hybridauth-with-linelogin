@@ -43,38 +43,38 @@ class Line extends OAuth2
     * {@inheritdoc}
     */
     protected $apiDocumentation = 'https://developers.line.me/en/services/line-login';
-
-	/**
+    
+    /**
     * {@inheritdoc}
     */
-	protected function validateAccessTokenExchange($response)
+    protected function validateAccessTokenExchange($response)
     {
         $collection = parent::validateAccessTokenExchange($response);
 
-		$this->storeData('id_token', $collection->get('id_token'));
+        $this->storeData('id_token', $collection->get('id_token'));
 
         return $collection;
-	}
-	
-	/**
+    }
+    
+    /**
     * {@inheritdoc}
     */
     public function getUserProfile()
     {
-	    $jwtDecoded = JWT::decode($this->getStoredData('id_token'), $this->clientSecret, array('HS256'));
-	
-		$data = new Data\Collection($jwtDecoded);
+        $jwtDecoded = JWT::decode($this->getStoredData('id_token'), $this->clientSecret, array('HS256'));
 
-		if (! $data->get('sub')) {
+        $data = new Data\Collection($jwtDecoded);
+
+        if (! $data->get('sub')) {
             throw new UnexpectedApiResponseException('Provider API returned an unexpected response.');
-		}
+        }
 
-		$userProfile = new User\Profile();
+        $userProfile = new User\Profile();
 
-		$userProfile->identifier = $data->get('sub');
-		$userProfile->displayName = $data->get('name');
-		$userProfile->photoURL = $data->get('picture');
-		$userProfile->email = $data->get('email');
+        $userProfile->identifier = $data->get('sub');
+        $userProfile->displayName = $data->get('name');
+        $userProfile->photoURL = $data->get('picture');
+        $userProfile->email = $data->get('email');
 
         return $userProfile;
     }
