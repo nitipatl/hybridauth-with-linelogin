@@ -42,7 +42,7 @@ class Line extends OAuth2
     /**
     * {@inheritdoc}
     */
-	protected $apiDocumentation = 'https://developers.line.me/en/services/line-login';
+    protected $apiDocumentation = 'https://developers.line.me/en/services/line-login';
 
 	/**
     * {@inheritdoc}
@@ -61,8 +61,8 @@ class Line extends OAuth2
     */
     public function getUserProfile()
     {
-		$jwtDecoded = JWT::decode($this->getStoredData('id_token'), $this->clientSecret, array('HS256'));
-		
+	    $jwtDecoded = JWT::decode($this->getStoredData('id_token'), $this->clientSecret, array('HS256'));
+	
 		$data = new Data\Collection($jwtDecoded);
 
 		if (! $data->get('sub')) {
